@@ -1,9 +1,0 @@
----
-applications:
-- name:      all-about-gurvinder
-  routes:
-  - route:  all-about-gurvinder.mybluemix.net
-  - route: www.gurvinder.info
-  memory:    128M
-  buildpacks:
-    - staticfile_buildpack

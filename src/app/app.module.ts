@@ -1,53 +1,57 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+// import { Angular2SocialLoginModule } from "angular2-social-login";
+// import { BrowserXhr, HttpModule } from '@angular/http';
 
+import { AppRoutingModule } from './app-routing.module';
+// import { CookieService } from 'ngx-cookie-service';
+
+// import { MyAuthService } from './services/auth.service';
+// import { MqttService } from './services/mqtt.service';
+// import { SharedService } from './services/shared.service';
+// import { HbuddyService } from './services/hbuddy.service';
 import { AppComponent } from './app.component';
-import { ThemeComponent } from './pages/theme/theme.component';
-import { ProfessionalComponent } from './pages/professional/professional.component';
+import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SocialComponent } from './pages/social/social.component';
-import { DisqusModule } from 'ngx-disqus';
-// import { DISQUS_SHORTNAME } from 'ngx-disqus';
-// import { ShareModule } from '@ngx-share/core';
-import { ShareModule } from 'ngx-sharebuttons';
-import { SharedService } from './services/shared.service';
-import { CommonService } from './services/common.service';
+import { HBuddyComponent } from './pages/h-buddy/h-buddy.component';
+// import { PlacesComponent } from './pages/places/places.component';
+import { AuthComponent } from './pages/auth/auth.component';
 
-const appRoutes: Routes = [
-  { path: '',      component: DashboardComponent },
-  { path: 'theme', component: ThemeComponent },
-  { path: 'professional', component: ProfessionalComponent },
-  { path: 'social', component: SocialComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full'}
-];
+let providers = {
+    "google": {
+      "clientId": "874807563899-9kk6gpacomg9t56pqfc4o8n4gn365ppg.apps.googleusercontent.com"
+    },
+    "linkedin": {
+      "clientId": "81ann4egou3i6j"
+    },
+    "facebook": {
+      "clientId": "330079704089458",
+      "apiVersion": "v2.9" //like v2.4
+    }
+  };
 
 @NgModule({
   declarations: [
     AppComponent,
-    ThemeComponent,
-    ProfessionalComponent,
+    HomeComponent,
     DashboardComponent,
-    SocialComponent
+    HBuddyComponent,
+    // PlacesComponent,
+    AuthComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
+    // HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
-    DisqusModule.forRoot('gurvinder'),
-    HttpClientModule,      // (Required) for share counts
-    HttpClientJsonpModule, // (Optional) For linkedIn & Tumblr counts
-    ShareModule,
-    // ShareButtonModule
+    // Angular2SocialLoginModule,
   ],
-  providers: [
-    // { provide: DISQUS_SHORTNAME, useValue: 'gurvinder' },
-      SharedService,
-      CommonService
-    ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// Angular2SocialLoginModule.loadProvidersScripts(providers);

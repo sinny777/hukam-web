@@ -1,7 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Component, ViewChild, ElementRef} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from './services/common.service';
-import { SharedService } from './services/shared.service';
+// import { MyAuthService } from './services/auth.service';
+import { environment } from '../environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -14,63 +16,83 @@ export class AppComponent {
   currentUser: any;
   loginForm: FormGroup;
   post:any;
-  contactPayload: any;
-
-  showLogo = true;
+  CONFIG: any;
+  showLogo: boolean = true;
 
   @ViewChild('closeBtn') closeBtn: ElementRef;
 
-  constructor(public sharedService: SharedService, public commonService: CommonService, private fb: FormBuilder){
-      this.currentUser = this.sharedService.getCurrentUser();
+  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder){
+        this.CONFIG = environment;
+        // console.log("CONFIG: >>> ", this.CONFIG);
       this.loginForm = fb.group({
         'username' : [null, Validators.required],
-        'password' : [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(20)])],
+        'password' : [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(20)])],
         'validate' : ''
       });
-
-      this.contactPayload = {
-        "firstName": "",
-        "lastName": "",
-        "email": "",
-        "message": ""
-      };
    }
 
-  signIn(provider){
-    console.log("Sign In to: >>> ", provider);
-  }
+   ngOnInit() {
+      console.log("<<<<<< Inside Main App Component >>>> ")
+      console.log("QUERY PARAMS: >>> ",this.route.snapshot.queryParamMap);
+      // this.router.navigate([''])
+      // this.myAuthService.getUserInfo(false).then( result => {
+      //       this.currentUser = result;
+      //       // console.log("In Init of AppComponent: >>>", this.myAuthService.authenticated);
+      //       // console.log("In Init of AppComponent: >>>", this.currentUser);
+      //  },
+      //  error => {
+      //     console.log("ERROR: >>> ", error);
+      //  });
+   }
 
-  gotoRegister(){
-    console.log("IN gotoRegister: >>> ");
-  }
+   gotoRegister(){
+     console.log("IN gotoRegister: >>> ");
+   }
+
+   signIn(provider){
+     console.log("Handle SignIn for Provider: >>> ", provider);
+   }
 
   handleLogin(post){
-    console.log("IN handleLogin: >>> ", JSON.stringify(post));
+    // console.log("IN handleLogin: >>> ", JSON.stringify(post));
+    console.log("IN handleLogin: >>> ", this.router.url);
+    var params = {};
+    if(post.username.indexOf('@') != -1){
+      params = {
+        "email": post.username,
+        "password": post.password
+      };
+    }else{
+      params = {
+        "username": post.username,
+        "password": post.password
+      };
+    }
+
+    let loginReq = {
+      "params": params
+    }
+
+    // this.myAuthService.login(loginReq).then( result => {
+    //     this.currentUser = result;
+    //     this.closeBtn.nativeElement.click();
+    //     if(this.router.url == "/auth"){
+          
+    //     }
+    //  },
+    //  error => {
+    //     console.log("ERROR: >>> ", error);
+    //  });
   }
 
   logout(){
-  
-  }
-
-  sendEmail(){
-    var message = "FirstName: "+this.contactPayload.firstName+"\n";
-        message += "LastName: "+this.contactPayload.lastName+"\n";
-        message += "Email: "+this.contactPayload.email+"\n";
-        message += "Message: "+this.contactPayload.message+"\n\n";
-        message += "Thanks..\n\n ";
-    var mailOptions = {
-      from: 'sinny777@gmail.com',
-      to: 'sinny777@gmail.com',
-      subject: 'CONTACT ME ON Gurvinder Profile...',
-      text: message
-    };
-    console.log("IN sendMail: >>> ", mailOptions);
-    this.commonService.sendEmail(mailOptions).then( result => {
-      console.log("Email sent Successfully:  ", result);
-    },
-    error => {
-        console.log("ERROR in sendEmail: >> ", error);
-    });
+  //   this.myAuthService.logout().then( result => {
+  //       this.currentUser = undefined;
+  //       this.router.navigate(['/']);
+  //  },
+  //  error => {
+  //     console.log("ERROR: >>> ", error);
+  //  });
   }
 
 }

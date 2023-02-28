@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# docker build --build-arg CLIENT_BUILD_ENV=docker -t profilet:latest .
+# docker build --build-arg CLIENT_BUILD_ENV=docker -t hukam:latest .
 # docker run -it -p 80:80 profile:latest
 
 BUILD_ENV="$1"

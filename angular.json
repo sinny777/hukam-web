@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "profile": {
+    "hukam": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/profile",
+            "outputPath": "dist/hukam",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -29,6 +29,8 @@
               "src/.htaccess"
             ],
             "styles": [
+              "src/assets/material-kit/assets/css/bootstrap.min.css",
+              "src/assets/material-kit-v1/assets/css/material-kit-min.css",
               "src/assets/assets-for-app/demo.css",
               "src/assets/css/app.css",
               "src/assets/assets-for-app/vertical-nav.css"
@@ -71,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "profile:build"
+            "browserTarget": "hukam:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "profile:build:production"
+              "browserTarget": "hukam:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "profile:build"
+            "browserTarget": "hukam:build"
           }
         },
         "test": {
@@ -115,7 +117,7 @@
         }
       }
     },
-    "profile-e2e": {
+    "hukam-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -124,11 +126,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "profile:serve"
+            "devServerTarget": "hukam:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "profile:serve:production"
+              "devServerTarget": "hukam:serve:production"
             }
           }
         },
@@ -144,7 +146,6 @@
       }
     }
   },
-  "defaultProject": "profile",
   "cli": {
     "analytics": "b1dfc39d-aa30-4e3a-8d5a-d646228c4f05"
   }

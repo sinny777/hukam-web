@@ -1,6 +1,6 @@
 ---
 applications:
-- name:      all-about-gurvinder
-  host:      all-about-gurvinder
+- name:      hukam-ui
+  host:      hukam-ui
   memory:    64M
   buildpack: staticfile_buildpack

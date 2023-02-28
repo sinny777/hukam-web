@@ -4,18 +4,18 @@
 ## This will build front end container running nginx
 ## Author: Gurvinder Singh (sinny777@gmail.com)
 ##
-## docker buildx build --platform linux/amd64,linux/arm64 --build-arg CLIENT_BUILD_ENV=production -t sinny777/profile:latest --push .
-## docker build --build-arg CLIENT_BUILD_ENV=production -t sinny777/profile:v1.0.1 .
-## docker run -it -d -p 4200:80 --network my-network --name profile profile:latest
-## docker run -it -p 8080:8080 --name profile sinny777/profile:latest
+## docker buildx build --platform linux/amd64,linux/arm64 --build-arg CLIENT_BUILD_ENV=production -t sinny777/hukam:latest --push .
+## docker build --build-arg CLIENT_BUILD_ENV=production -t sinny777/hukam:v1.0.1 .
+## docker run -it -d -p 4200:80 --network my-network --name hukam hukam:latest
+## docker run -it -p 8080:8080 --name hukam sinny777/hukam:latest
 ##
 
 FROM node:16-alpine as client-build
 
 LABEL version="1.0" \
-      description=" Gurvinder Singh Profile Webpage " \
+      description=" Gurvinder Singh hukam Webpage " \
       author="Gurvinder Singh <sinny777@gmail.com>" \
-      profile="http://www.gurvinder.info"
+      hukam="http://www.gurvinder.info"
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -41,7 +41,7 @@ RUN chgrp -R 0 /app && \
 
 FROM nginx:1.13.5
 # FROM nginxinc/nginx-unprivileged
-COPY --from=client-build app/dist/profile /usr/share/nginx/html
+COPY --from=client-build app/dist/hukam /usr/share/nginx/html
 COPY --from=client-build app/src/config/nginx.conf /etc/nginx/nginx.conf
 # COPY --from=client-build ./.nginx/nginx.conf /etc/nginx/nginx.conf
 
