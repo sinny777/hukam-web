@@ -1,0 +1,9 @@
+---
+applications:
+- name:      hukamtechnologies
+  routes:
+  - route:  hukamtechnologies.mybluemix.net
+  - route: www.hukamtechnologies.com
+  memory:    128M
+  buildpacks:
+    - staticfile_buildpack
