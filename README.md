@@ -37,7 +37,7 @@ ibmcloud resource groups
 ibmcloud target -r jp-tok -g Hukam-Dev
 ibmcloud ce project select --name smartthings
 
-ibmcloud ce app create --name gurvinder-info --port 80 --cpu .0125 --memory 0.25  --image docker.io/sinny777/hukam:latest
+ibmcloud ce app create --name hukam-web --port 80 --cpu .125 --memory 0.25G  --image docker.io/sinny777/hukam:latest
 
 
  awk -v ORS='\\n' '1' secrets/cert_v2.pem | pbcopy
